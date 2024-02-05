@@ -1,3 +1,4 @@
+package driver;
 
 
 import java.awt.BorderLayout;
@@ -12,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+
+import gui.BottomPanel;
+import gui.ImagePanel;
+
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
