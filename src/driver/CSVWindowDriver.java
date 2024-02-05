@@ -1,4 +1,4 @@
-
+package driver;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -16,8 +16,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
+import gui.BottomPanel;
 //import HelpPanelWi
+
 import gui.HelpPanelWithHtmlContents;
+import gui.ImagePanel;
 import mgr.HelpPanelContentBuilder;
 import mgr.HelpPanelContentModel;
 
