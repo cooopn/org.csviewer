@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import java.io.File;
 
 import mgr.HelpPanelContentModel;
 import mgr.HelpPanelContentBuilder;
@@ -48,9 +50,9 @@ public class HelpPanelWithHtmlContents extends JPanel {
 		
 		//f.add(jspHtml);
 		
-		int numPages = 6; 			//This value holds the total number of button objects 
+		//int numPages = findNumPages("html/Measure"); 			//This value holds the total number of button objects 
 		JPanel controlPanel = new JPanel();
-		final JButton[] btns = new JButton[numPages];
+		final JButton[] btns = new JButton[6];
 		btns[0] = new JButton("Prev");
 		btns[5] = new JButton("Next");
 		btns[1] = new JButton("1");
@@ -147,6 +149,33 @@ public class HelpPanelWithHtmlContents extends JPanel {
 		p.setPreferredSize(new Dimension(890, 625));
 		*/
 	}
+
+	// PRE : Must pass the valid folder path to the method
+	//POST : Will return the integer for the number of page numbers in the file
+	//	   	 Use this number for files navigation
+	public static int findNumPages(String folderPath) {
+		 // Create a File object for the folder
+		 File folder = new File(folderPath);
+
+		 // Get the list of files in the folder
+		 File[] files = folder.listFiles();
+ 
+		 // Check if the folder exists and is a directory
+		 if (folder.exists() && folder.isDirectory()) {
+			 // Check if files is not null (i.e., the folder is not empty)
+			 if (files != null) {
+				 // Get the number of files
+				 return files.length;
+			 } else {
+				 // Return 0 if the folder is empty
+				 return 0;
+			 }
+		 } else {
+			 // Return -1 if the specified path is not a folder or does not exist
+			 return -1;
+		 }
+	 }
+
 
 	public void loadPagesForTopic(String helpTopic) {
 		// for now
