@@ -50,7 +50,29 @@ public class HelpPanelWithHtmlContents extends JPanel {
 		
 		//f.add(jspHtml);
 		
-		//int numPages = findNumPages("html/Measure"); 			//This value holds the total number of button objects 
+		int numPages = findNumPages("html/Measure"); 			//This value holds the total number of button objects 
+		System.out.println("THE NUMBER OF PAGES IN THE DIRECTORY IS :" + numPages);
+		/* JPanel controlPanel = new JPanel();
+		JButton[] btns = new JButton[numPages];		
+		btns[0] = new JButton("Prev");
+		btns[btns.length - 1] = new JButton("Next");
+		final Map<String, Integer> curBtnIndex = new TreeMap(); 
+		curBtnIndex.put("CurBtn", 1);
+
+		btns[0].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentPageIndex > 0) {
+					currentPageIndex--;
+				}
+			}
+		});
+
+		ActionListener listener = new ActionListener() {
+			@Override
+
+		};
+
+ */
 		JPanel controlPanel = new JPanel();
 		final JButton[] btns = new JButton[6];
 		btns[0] = new JButton("Prev");
@@ -121,6 +143,9 @@ public class HelpPanelWithHtmlContents extends JPanel {
 				jspHtml.repaint();
 			}
 
+
+			// This method only shows a false html page for the current page number scroll bar
+			// Can ignore this page for now
 			private String getDummyHtml(int pageNo) {				
 				String html = "<!DOCTYPE html>\r\n" + 
 						"<html>\r\n" + 
