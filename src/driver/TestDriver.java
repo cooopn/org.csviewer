@@ -23,8 +23,8 @@ public class TestDriver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String helpTopic = e.getActionCommand();
-				p.loadPagesForTopic(helpTopic);
-				p.setContentToInitialPage();
+				//p.loadPagesForTopic(helpTopic);
+				//p.setContentToInitialPage();
 				p.repaint();
 			}
 			

@@ -38,8 +38,7 @@ public class CSVWindowDriver extends JFrame {
 		leftColumn.setLayout(new BorderLayout());
 		ImageIcon csvIconImage = new ImageIcon("images/monkeyIcon.png");
 		
-		JPanel welcomePanel = new HelpPanelWithHtmlContents(); /*= new JPanel();
-		welcomePanel.add(new JLabel(csvIconImage));*/
+		JPanel welcomePanel = new HelpPanelWithHtmlContents(); 
 		pane.addTab("Welcome", welcomePanel);
 		leftColumn.add(pane);
 		leftColumn.add(bPanel, BorderLayout.SOUTH);
@@ -65,8 +64,8 @@ public class CSVWindowDriver extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				String helpTopic = e.getActionCommand();
-				p.loadPagesForTopic(helpTopic);
-				p.setContentToInitialPage();
+				//p.loadPagesForTopic(helpTopic);
+				//p.setContentToInitialPage();
 				CSVWindowDriver.this.repaint();
 			}
 		};
@@ -79,9 +78,6 @@ public class CSVWindowDriver extends JFrame {
 		JMenuBar mb = new JMenuBar();
 		mb.add(jmHelp);
 		this.setJMenuBar(mb);
-
-		
-
 		setVisible(true);
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
