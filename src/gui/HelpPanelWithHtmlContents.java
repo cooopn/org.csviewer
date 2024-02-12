@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -46,19 +48,28 @@ public class HelpPanelWithHtmlContents extends JPanel {
         prevButton.addActionListener(new NavigationHandler());
         buttonPanel.add(prevButton); 
 
+        // Create the text field for page number input
+        pageNumberField = new JTextField(5);
+        pageNumberField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    goToPage();
+                }
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        buttonPanel.add(pageNumberField); 
+
         // Create the next button and add action listener
         nextButton = new JButton("Next");
         nextButton.addActionListener(new NavigationHandler());
         buttonPanel.add(nextButton); 
-
-        // Create the text field for page number input
-        pageNumberField = new JTextField(5);
-        buttonPanel.add(pageNumberField); 
-
-        // Create the "Go To" button and add action listener
-        JButton goToButton = new JButton("Go To");
-        goToButton.addActionListener(new GoToPageHandler());
-        buttonPanel.add(goToButton); 
 
         // Set preferred size for the text pane
         jspHtml.setPreferredSize(new Dimension(500, 300));
@@ -102,17 +113,22 @@ public class HelpPanelWithHtmlContents extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                // Parse the page number input from the text field
-                int pageIndex = Integer.parseInt(pageNumberField.getText()) - 1;
-                // If the page number is valid
-                if (pageIndex >= 0 && pageIndex < theModel.pageCount()) {
-                    currentBtnIndex = pageIndex; // Update the index
-                    showPage(currentBtnIndex); // Show the specified page
-                }
-            } catch (NumberFormatException ex) {
-                // Handle invalid input (non-numeric input)
+            goToPage();
+        }
+    }
+
+    // Method to navigate to the specified page
+    private void goToPage() {
+        try {
+            // Parse the page number input from the text field
+            int pageIndex = Integer.parseInt(pageNumberField.getText()) - 1;
+            // If the page number is valid
+            if (pageIndex >= 0 && pageIndex < theModel.pageCount()) {
+                currentBtnIndex = pageIndex; // Update the index
+                showPage(currentBtnIndex); // Show the specified page
             }
+        } catch (NumberFormatException ex) {
+            // Handle invalid input (non-numeric input)
         }
     }
 }
