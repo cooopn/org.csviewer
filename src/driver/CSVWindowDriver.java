@@ -27,7 +27,8 @@ public class CSVWindowDriver extends JFrame {
     private JPanel contentPane;
     private BottomPanel bPanel = new BottomPanel(); // Panel at the bottom
     private ImagePanel iPanel = new ImagePanel(); // Panel for displaying images
-    private HelpPanelWithHtmlContents welcomePanel = new HelpPanelWithHtmlContents(); // Panel for the "Welcome" tab
+    private HelpPanelWithHtmlContents welcomePanel = new HelpPanelWithHtmlContents("html/Welcome"); // Panel for the "Welcome" tab
+	private HelpPanelWithHtmlContents measureInformation = new HelpPanelWithHtmlContents("html/Measure"); // Panel for the "Measure" tab
     
     // Constructor
     public CSVWindowDriver() {
@@ -41,6 +42,7 @@ public class CSVWindowDriver extends JFrame {
         
         // Add the welcome panel to the tabbed pane
         pane.addTab("Welcome", welcomePanel);
+		pane.addTab("Measure Information", measureInformation);
         leftColumn.add(pane); // Add the tabbed pane to the left column
         leftColumn.add(bPanel, BorderLayout.SOUTH); // Add the bottom panel to the left column
         
@@ -75,9 +77,8 @@ public class CSVWindowDriver extends JFrame {
                 }
                 // If "Measure" is clicked, switch to the "Measure" tab
                 else if (helpTopic.equals("Measure")) {
-                    // Add code to switch to the "Measure" tab if available
-                    // pane.setSelectedComponent(measurePanel);
-                }
+					pane.setSelectedComponent(measureInformation);
+                }	
             }
         };
         

@@ -17,7 +17,7 @@ public class TestDriver {
 		JMenu jmHelp = new JMenu("Help");
 		JMenuItem jmiWelcome = new JMenuItem("Intro");	
 		JMenuItem jmiMeasure = new JMenuItem("Measure");
-		HelpPanelWithHtmlContents p = new HelpPanelWithHtmlContents();
+		HelpPanelWithHtmlContents p = new HelpPanelWithHtmlContents("html/Welcome");
 		ActionListener al = new ActionListener() {
 
 			@Override

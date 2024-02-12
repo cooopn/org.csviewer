@@ -23,7 +23,7 @@ public class HelpPanelWithHtmlContents extends JPanel {
     private int currentBtnIndex = 0; // Index of the currently displayed page
 
     // Constructor
-    public HelpPanelWithHtmlContents() {
+    public HelpPanelWithHtmlContents(String directoryPath) {
         setLayout(new BorderLayout()); // Use BorderLayout for the panel
 
         // Initialize the text pane
@@ -35,7 +35,7 @@ public class HelpPanelWithHtmlContents extends JPanel {
         JScrollPane jspHtml = new JScrollPane(htmlPane);
 
         // Retrieve the help panel content model from the directory
-        theModel = theBuilder.retrievePagesFromDir("html/Welcome");
+        theModel = theBuilder.retrievePagesFromDir(directoryPath);
         int pageCount = theModel.pageCount(); // Get the number of pages in the model
 
         // Create a panel for navigation buttons
