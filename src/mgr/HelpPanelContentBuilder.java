@@ -31,7 +31,7 @@ public class HelpPanelContentBuilder {
 	
 	public HelpPanelContentModel retrievePagesFromDir(String dir) {
 		modelWithPages = new HelpPanelContentModel();
-		String absDirPath = this.htmlRootPath + "\\" + dir;
+		String absDirPath = this.htmlRootPath + "/" + dir;
 		System.out.println("absDirPath=" + absDirPath);
 		File folder = new File(absDirPath);
 		
@@ -39,7 +39,7 @@ public class HelpPanelContentBuilder {
 			if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".html")) {
 				System.out.println(fileEntry.getName());
 				modelWithPages.addPage(
-						getPage(dir + "\\" + fileEntry.getName()));
+						getPage(dir + "/" + fileEntry.getName()));
 			}
 		}
 
@@ -74,13 +74,9 @@ public class HelpPanelContentBuilder {
 			System.out.println(line);
 			System.out.println(root);
 			
-			String htmlImageBase = "C:/Users/itzCo/Desktop/Class Files/CSC 481.001/proj1_resources/org.csviewer";
+			String htmlImageBase = "C:/Users/katherinebelleduke/CSC481proj/org.csviewer";
 			newLine = line.replace("src=\"html/image", 
 					"src=\"file:///" + htmlImageBase + "/html/image");
-			/*
-			JOptionPane.showConfirmDialog(null, "See the image?", "In img adapter", 0, 0, 
-					new ImageIcon("C:/Users/Martin Zhao/eclipse-workspace/CSC481/html/image/monkeyIcon.png"));
-			*/
 			System.out.println("Chgd==>" + newLine);
 		}
 		return newLine;

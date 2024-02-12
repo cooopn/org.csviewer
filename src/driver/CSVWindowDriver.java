@@ -60,7 +60,15 @@ public class CSVWindowDriver extends JFrame {
 		JMenu jmHelp = new JMenu("Help");
 		JMenuItem jmiWelcome = new JMenuItem("Intro");
 		JMenuItem jmiMeasure = new JMenuItem("Measure");
+		
+		//creates Bones for key
+		JMenu jmHelp2 = new JMenu("Key");
+		JMenuItem jmiBone1 = new JMenuItem("Ulna");
+		//Jmenuitme of each bone
+
+
 		HelpPanelWithHtmlContents p = new HelpPanelWithHtmlContents();
+
 		ActionListener al = new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -71,16 +79,18 @@ public class CSVWindowDriver extends JFrame {
 			}
 		};
 
-		//Implements the Drop Down
+		//Implements the Drop Downs
 		jmiWelcome.addActionListener(al);
 		jmiMeasure.addActionListener(al);
+		jmiBone1.addActionListener(al);
 		jmHelp.add(jmiWelcome);
 		jmHelp.add(jmiMeasure);
+		jmHelp2.add(jmiBone1);
+
 		JMenuBar mb = new JMenuBar();
 		mb.add(jmHelp);
+		mb.add(jmHelp2);
 		this.setJMenuBar(mb);
-
-		
 
 		setVisible(true);
 		pack();

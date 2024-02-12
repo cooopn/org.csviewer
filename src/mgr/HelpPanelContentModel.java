@@ -53,11 +53,11 @@ public class HelpPanelContentModel {
 			System.out.println(line);
 			System.out.println(root);
 			
-			String htmlImageBase = "C:/Users/itzCo/Desktop/Class Files/CSC 481.001/proj1_resources/org.csviewer";
+			String htmlImageBase = "C:/Users/katherinebelleduke/CSC481proj/org.csviewer/html";
 			newLine = line.replace("src=\"html/image", 
 					"src=\"file:///" + htmlImageBase + "/html/image");
 			JOptionPane.showConfirmDialog(null, "See the image?", "In img adapter", 0, 0, 
-					new ImageIcon("C:/Users/itzCo/Desktop/Class Files/CSC 481.001/proj1_resources/org.csviewer/html/image/monkeyIcon.png"));
+					new ImageIcon("C:/Users/katherinebelleduke/CSC481proj/org.csviewer/html/image/monkeyIcon.png"));
 			System.out.println("Chgd==>" + newLine);
 		}
 		return newLine;
