@@ -64,10 +64,21 @@ public class CSVWindowDriver extends JFrame {
         add(leftColumn, BorderLayout.CENTER);
         add(rightColumn, BorderLayout.EAST);
         
-        // Create a menu bar
-        JMenu jmHelp = new JMenu("Help");
+        // Create a menu bar with items
+		JMenu jmFile = new JMenu("File");
+		JMenu jmSearch = new JMenu("Search");
+		JMenu jmFamily = new JMenu("Family");
+		JMenu jmMeasure = new JMenu("Measure");
+		JMenu jmImage = new JMenu("Image");
+		JMenu jmGroup = new JMenu("Group");
+        JMenu jmCatalog = new JMenu("Catalog");
+		JMenu jmAnalytics = new JMenu("Analytics");
+		JMenu jmDental = new JMenu("Dental");
+		JMenu jmPhyschology = new JMenu("Psychology");
+		JMenu jmHelp = new JMenu("Help");
         JMenuItem jmiWelcome = new JMenuItem("Intro");
         JMenuItem jmiMeasure = new JMenuItem("Measure");
+
         ActionListener al = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String helpTopic = e.getActionCommand();
@@ -90,8 +101,18 @@ public class CSVWindowDriver extends JFrame {
         jmHelp.add(jmiWelcome);
         jmHelp.add(jmiMeasure);
         
-        // Create a menu bar and add the help menu to it
+        // Create a menu bar and add the menu items to it
         JMenuBar mb = new JMenuBar();
+		mb.add(jmFile);
+		mb.add(jmSearch);
+		mb.add(jmFamily);
+		mb.add(jmMeasure);
+		mb.add(jmImage);
+		mb.add(jmGroup);
+		mb.add(jmCatalog);
+		mb.add(jmAnalytics);
+		mb.add(jmDental);
+		mb.add(jmPhyschology);
         mb.add(jmHelp);
         this.setJMenuBar(mb); // Set the menu bar for the frame
         
