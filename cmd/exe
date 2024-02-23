@@ -1,0 +1,4 @@
+java -cp "lib\*;CSViewer.jar" src.test.CSVFlashScreen
+
+
+java -jar CSViewer.jar                                                                                                                          
