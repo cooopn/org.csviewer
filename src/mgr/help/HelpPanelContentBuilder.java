@@ -1,4 +1,4 @@
-package mgr;
+package mgr.help;
 
 import java.util.List;
 import java.util.Scanner;
@@ -29,8 +29,6 @@ public class HelpPanelContentBuilder {
 		htmlRootPath = new File("").getAbsolutePath();
 	}
 	
-	//WE want this code to be grabbing information from the webserver
-
 	public HelpPanelContentModel retrievePagesFromDir(String dir) {
 		modelWithPages = new HelpPanelContentModel();
 		String absDirPath = this.htmlRootPath + "\\" + dir;
@@ -75,15 +73,10 @@ public class HelpPanelContentBuilder {
 			String root = new File("").getAbsolutePath();
 			System.out.println(line);
 			System.out.println(root);
-			System.out.println("changeImageSrc..");
 			
-			//String htmlImageBase = "C:/Users/itzCo/Desktop/Class Files/CSC 481.001/proj1_resources/org.csviewer";
-			String htmlImageBase = "https://webclass.cs.mercer.edu/~zhao/org.csviewer/";
-			//newLine = line.replace("src=\"html/image", 
-			//		"src=\"file:///" + htmlImageBase + "/html/image");
-
+			String htmlImageBase = "C:/Users/itzCo/Desktop/Class Files/CSC 481.001/proj1_resources/org.csviewer";
 			newLine = line.replace("src=\"html/image", 
-					htmlImageBase + "/html/image");		
+					"src=\"file:///" + htmlImageBase + "/html/image");
 			/*
 			JOptionPane.showConfirmDialog(null, "See the image?", "In img adapter", 0, 0, 
 					new ImageIcon("C:/Users/Martin Zhao/eclipse-workspace/CSC481/html/image/monkeyIcon.png"));

@@ -21,6 +21,7 @@ import gui.AnimalSetSelectionPanel;
 import gui.MainContentPaneWithTabs;
 import joinery.DataFrame;
 import joinery.DataFrame.JoinType;
+import measure.BoneMeasureMgr;
 import measure.MeasureDataAccessor;
 import measure.MeasureDataOrganizer;
 import search.AnimalFamilyInfoAccessor;
@@ -29,15 +30,17 @@ import search.AnimalFamilyOrganizer;
 public class MainDriver {
 	private AnimalFamilyOrganizer afOrg;
 	private MeasureDataOrganizer mdOrg;
+	private BoneMeasureMgr bmMgr;
 	
-	public MainDriver() {
+	public MainDriver(BoneMeasureMgr bmMgr) {
 		AnimalFamilyInfoAccessor afi = new AnimalFamilyInfoAccessor();
 		afOrg = new AnimalFamilyOrganizer(afi);
 		mdOrg = new MeasureDataOrganizer(new MeasureDataAccessor());
+		this.bmMgr = bmMgr;
 	}
 
 	public static void main(String args[]) {
-		MainDriver md = new MainDriver();
+		MainDriver md = new MainDriver(null);
 		JFrame f = new JFrame("CSViewer Main Test");
 		AnimalSetSelectionPanel asPanel = new AnimalSetSelectionPanel();
 		MainContentPaneWithTabs tabbedPane = new MainContentPaneWithTabs();
@@ -123,9 +126,9 @@ public class MainDriver {
 		DataFrame<Object> dataset = selectAnimals.joinOn(selectMeasures, 
 				JoinType.INNER, 0);		
 		System.out.println(dataset.columns());
-		System.out.println(mdOrg.getSelectedKeys()[0]);
+		System.out.println(bmMgr.getSelectedKeys()[0]);
 		//dataset = dataset.retain("CS_Tattoo", "EAAD", "Go-Go");
-		dataset = dataset.retain("CS_Tattoo", "EAAD", mdOrg.getSelectedKeys()[0]);
+		dataset = dataset.retain("CS_Tattoo", "EAAD", bmMgr.getSelectedKeys()[0]);
 		dataset.dropna();
 		addXyPlotTab(dataset, tabbedPane);
 	}

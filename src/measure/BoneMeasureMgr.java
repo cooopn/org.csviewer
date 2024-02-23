@@ -15,6 +15,10 @@ public class BoneMeasureMgr {
 		return mdOrg.getMeasureWithEAAD(selectedKeys);
 	}
 	
+	public String[] getSelectedKeys() {
+		return selectedKeys;
+	}
+	
 	public void setSelectedKeys(String[] selectedKeys) {
 		this.selectedKeys = selectedKeys;
 	}

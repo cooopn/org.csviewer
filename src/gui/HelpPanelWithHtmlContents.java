@@ -10,9 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+
+import mgr.help.HelpPanelContentBuilder;
+import mgr.help.HelpPanelContentModel;
+
 import javax.swing.JTextField;
-import mgr.HelpPanelContentBuilder;
-import mgr.HelpPanelContentModel;
 
 public class HelpPanelWithHtmlContents extends JPanel {
 

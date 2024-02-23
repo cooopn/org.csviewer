@@ -41,6 +41,7 @@ import gui.HelpPanelWithHtmlContents;
 import gui.MainContentPaneWithTabs;
 import gui.MeasureSelectionPanel;
 import measure.BoneMeasureMgr;
+import mgr.AnalyticsMgr;
 import mgr.AnimalFamilyInfo;
 import mgr.familytree.FamilyTreeMgr;
 import search.SearchMgr;
@@ -54,8 +55,10 @@ public class CSViewerMain extends JFrame {
 	private SearchMgr sMgr = new SearchMgr();
 	private BoneMeasureMgr bmMgr = new BoneMeasureMgr();
 
-	private HelpPanelWithHtmlContents welcomePanel = new HelpPanelWithHtmlContents("html/Welcome"); // Panel for the "Welcome" tab
-	private HelpPanelWithHtmlContents measureInformation = new HelpPanelWithHtmlContents("html/Measure"); // Panel for the "Measure" tab
+	private HelpPanelWithHtmlContents welcomePanel = 
+			new HelpPanelWithHtmlContents("html/Welcome"); // Panel for the "Welcome" tab
+	//private HelpPanelWithHtmlContents measureInformation = 
+	//		new HelpPanelWithHtmlContents("html/Measure"); // Panel for the "Measure" tab
 	
 	public static final Image CS_VIEWER_LOGO = 
 			new ImageIcon("images/monkeyicon.png").getImage();
@@ -103,12 +106,27 @@ public class CSViewerMain extends JFrame {
         contentPane = new JPanel(new BorderLayout());
         contentPane.setOpaque(true);
  
-        //Create a scrolled text area.
-        
+        /*
+        JPanel output = new JPanel();
+        output.setLayout(new BorderLayout());
+        JButton welcomeLabel = new JButton("Welcome to CSViewer for Analyst v1.0!");
+        welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+        Dimension d = new Dimension(100, 500);
+        output.setPreferredSize(d);
+        output.setMinimumSize(d);
+        welcomeLabel.setBackground(Color.GREEN);
+        output.add(welcomeLabel, BorderLayout.SOUTH);
+        output.add(new JLabel(new ImageIcon("images/CSIsland.png")));
+        //output.add(new JLabel(new ImageIcon("images/CSRhesusMM.jpg")));
+        JScrollPane scrollPane = new JScrollPane(output);
  
         //Add the text area to the content pane.
+        tabbedPane.addTab("Welcome", scrollPane);
+        */
+        
         tabbedPane.addTab("Welcome", welcomePanel);
-		tabbedPane.addTab("Measure Information", measureInformation);
+		//tabbedPane.addTab("Measure Information", measureInformation);
+
         contentPane.add(tabbedPane);
 	}
 
@@ -319,8 +337,9 @@ public class CSViewerMain extends JFrame {
 				//JPanel chartPanel = new SkullMeasurePanel().getChartPanel();
 				//new MainDriver().testXyPlotTab(tabbedPane);
 				// now using live selection
-				new MainDriver().testXyPlotTab(tabbedPane, 
-						sMgr.selectAnimals(), bmMgr.selectMeasures());
+				new AnalyticsMgr(sMgr, bmMgr).testXyPlotTab(tabbedPane);
+				//MainDriver(bmMgr).testXyPlotTab(tabbedPane, 
+				//		sMgr.selectAnimals(), bmMgr.selectMeasures());
 			}
         	
         });
