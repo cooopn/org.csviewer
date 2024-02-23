@@ -4,10 +4,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import driver.CSVWindowDriver;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
+
+//import org.apache.poi.ss.usermodel.Color;
+
+import main.CSViewerMain;
+
 
 public class CSVFlashScreen {
 
@@ -17,6 +33,7 @@ public class CSVFlashScreen {
 
         // Create a frameless JFrame
         JFrame frameless = new JFrame("Not Showing");
+        
 
         // Add a mouse listener to the frame
         frameless.addMouseListener(new MouseAdapter() {
@@ -24,7 +41,8 @@ public class CSVFlashScreen {
             public void mouseClicked(MouseEvent e) {
                 // When mouse is clicked, dispose the frame and start the CSVViewer
                 frameless.dispose();
-                CSVWindowDriver.startCSViewer();
+                //CSVWindowDriver.startCSViewer();
+                CSViewerMain.startCSViewer();
             }
         });
 

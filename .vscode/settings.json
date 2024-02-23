@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\itzCo\\Downloads\\jfreechart-1.5.0.jar",
+        "c:\\Users\\itzCo\\Downloads\\commons-csv-1.10.0.jar",
+        "c:\\Users\\itzCo\\Downloads\\joinery-dataframe-1.10-jar-with-dependencies.jar"
+    ]
+}
