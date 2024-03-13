@@ -1,0 +1,41 @@
+Humerus
+HL	Humeral length: Maximum linear distance, from proximal limit of humerus to distal limit.
+HP	Humeral head mediolateral breadth: Linear distance of most medial and lateral limits of humeral head, not including tuberosities.
+HPAP	Humeral head anteroposterior length: Linear distance of most anterior and posterior limits of humeral head. 
+HDML	Humeral distal end mediolateral breadth: Linear distance from medial epicondyle to lateral epicondyle
+HDAP	Humeral distal end anteroposterior length: Linear distance of most anterior and posterior limits of distal end.
+HDia	Humeral diaphysis circumference: Measure at most lateral point of deltoid tuberosity
+
+Radius
+RL	Radial length: Maximum linear distance, from proximal limit of humerus to distal limit. The callipers will lay flat against the head of the radius and the end of the styloid process will always represent the most distal limit
+RPML	Radial proximal end mediolateral breadth: Linear distance of most medial limit to most lateral limit of radius head
+RPAP	Radial proximal end anteroposterior length: Linear distance of most anterior limit to most posterior limit of radius head.
+RDML	Radial distal end mediolateral breadth: Linear distance of most medial limit to distal radioulnar joint. 
+RDAP	Radial distal end anteroposterior length: Linear distance of most anterior limit to most posterior limit of distal end.
+RDia	Radial diaphysis circumference: Measure at most medial distance of radial tuberosity
+
+Ulna	
+UL	Ulnae length: Maximum linear distance, from styloid process to most proximal limit of olecranon process.
+UDia	Ulnae diaphysis circumference: Measure across nutrient foramen shaft
+
+
+Femur
+FL	Femoral length: Maximum linear distance, from distal femoral condyles where callipers lie flat and proximal distance taken from that position at greater trochanter.
+FHL	Femoral length: Linear distance, from distal femoral condyles where callipers lie flat and proximal distance taken from that position at femoral head. Can occasionally represent maximum linear distance of bone.
+FHML	Femoral head mediolateral breadth: Linear distance of fovea capitis to lateral limit of femoral head.
+FHSI	Femoral head superoinferior length: Linear distance of most superior limit of head to most inferior limit.
+FDML	Femoral bi-epicondylar mediolateral breadth: Linear distance of medial limit of medial epicondyle to lateral limit of lateral epicondyle.
+FDAP	Femoral distal end anteroposterior breadth: Linear distance callipers resting on medial and lateral condyle to most posterior point of patellar lip.
+FDia	Femoral diaphysis circumference: Measure across shaft nutrient foramen
+
+Tibia
+TL	Tibial length: Maximum linear distance, from the proximal limit of the intercondylar eminence to the distal limit of the medial malleolus.
+TPML	Tibial proximal end mediolateral breadth: Linear distance of medial limit of medial epicondyle to lateral limit of lateral epicondyle.
+TPAP	Tibial proximal end anteroposterior breadth: Linear distance of most anterior limit to the most posterior limit
+TDML	Tibia distal end mediolateral breadth: Linear distance of most lateral limit of epiphysis to the most medial limit of medial malleolus
+TDAP	Tibia distal end anteroposterior breadth: Linear distance of most anterior limit of epiphysis to the most posterior limit of epiphysis 
+TDia	Tibial diaphysis circumference: Measure across shaft nutrient foramen 
+
+Pelvis
+IlCrest	Inter-iliac crest: Linear distance between most lateral points of the iliac crests
+Pel_Height	Pelvic Height: Linear distance between most superior point of the iliac crest and the most inferior point of the ischial tuberosity
