@@ -4,164 +4,136 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.TreeMap;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
-import mgr.HelpPanelContentModel;
-import mgr.HelpPanelContentBuilder;
+import mgr.help.HelpPanelContentBuilder;
+import mgr.help.HelpPanelContentModel;
+
+import javax.swing.JTextField;
 
 public class HelpPanelWithHtmlContents extends JPanel {
-	private JPanel controlPanel;
-	private JTextPane htmlPane;
-	private HelpPanelContentModel theModel;
-	private HelpPanelContentBuilder theBuilder = new HelpPanelContentBuilder(); 
-	
-	public HelpPanelWithHtmlContents() {
-		Dimension d = new Dimension(500, 300);
-		this.setMinimumSize(d);
-		this.setMaximumSize(d);
-		this.setPreferredSize(d);
-		htmlPane = new JTextPane();
-		htmlPane.setContentType("text/html");
 
-		JScrollPane jspHtml = new JScrollPane(htmlPane);
-		
-		// get html from within the class
-		//String html = getHtmlInClass();
-		// get html from local file directory
-		
-		//String html = getHtmlFromImageRoot("WelcomeWithRelativePath.html");
-		// testing with dummy page in the model
-		//String html = theModel.getTestPage();
-		
-		//loading pages from 
-		theModel = theBuilder.retrievePagesFromDir("html");
-		System.out.println(theModel.pageCount());
-		String html = theModel.getPageByIndex(0);
-		
-		System.out.println(html);
-		htmlPane.setText(html);
-		
-		//f.add(jspHtml);
-		
-		int numPages = 6; 			//This value holds the total number of button objects 
-		JPanel controlPanel = new JPanel();
-		final JButton[] btns = new JButton[numPages];
-		btns[0] = new JButton("Prev");
-		btns[5] = new JButton("Next");
-		btns[1] = new JButton("1");
-		btns[2] = new JButton("2");
-		btns[3] = new JButton("3");
-		btns[4] = new JButton("4");
-		btns[0].setEnabled(false);
-		btns[1].setEnabled(false);
-		final Map<String, Integer> curBtnIndex = new TreeMap(); 
-		curBtnIndex.put("CurBtn", 1);
-		btns[1].setEnabled(false);
-		ActionListener al = new ActionListener() {
+    private JTextPane htmlPane; // Text pane to display HTML content
+    private HelpPanelContentModel theModel; // Model to manage HTML pages
+    private HelpPanelContentBuilder theBuilder = new HelpPanelContentBuilder(); // Builder to create the model
+    private JButton prevButton; // Button to navigate to the previous page
+    private JButton nextButton; // Button to navigate to the next page
+    private JTextField pageNumberField; // Text field to input the page number
+    private int currentBtnIndex = 0; // Index of the currently displayed page
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int btnNo = curBtnIndex.get("CurBtn");
-				if (arg0.getActionCommand().equals("Next")) {
-					//System.out.println(btnNo);
-					if (btnNo < 4) {
-						btns[0].setEnabled(true);
-						curBtnIndex.put("CurBtn", btnNo+1);
-						btns[btnNo].setEnabled(true);
-						btns[btnNo+1].setEnabled(false);
-						if (btnNo == 3) { // btnNo == 3
-							btns[5].setEnabled(false);
-						}
-						htmlPane.setText(getDummyHtml(btnNo+1));
-						//System.out.println("Hanlding btn: " + btnNo);
-					}
-				}
-				else if (arg0.getActionCommand().equals("Prev")){
-					//System.out.println(btnNo);
-					if (btnNo > 1) {
-						btns[5].setEnabled(true);
-						curBtnIndex.put("CurBtn", btnNo-1);
-						btns[btnNo].setEnabled(true);
-						btns[btnNo-1].setEnabled(false);
-						if (btnNo == 2) { // btnNo == 3
-							btns[0].setEnabled(false);
-						}
-						htmlPane.setText(getDummyHtml(btnNo-1));
-						//System.out.println("Hanlding btn: " + btnNo);
-					}
-				}
-				else {
-					int newBtnNo = Integer.parseInt(arg0.getActionCommand());
-					if (newBtnNo != btnNo) {
-						curBtnIndex.put("CurBtn", newBtnNo);
-						btns[btnNo].setEnabled(true);
-						btns[newBtnNo].setEnabled(false);
-						if (newBtnNo == 2 || newBtnNo == 3) { 
-							btns[0].setEnabled(true);
-							btns[5].setEnabled(true);
-						} 
-						else if (newBtnNo == 4) { 
-							btns[0].setEnabled(true);
-							btns[5].setEnabled(false);
-						} 
-						else if (newBtnNo == 1) { 
-							btns[5].setEnabled(true);
-							btns[0].setEnabled(false);
-						}
-						htmlPane.setText(getDummyHtml(newBtnNo));
-					}
-				}
-				jspHtml.repaint();
-			}
+    private BasicBackgroundPanel backgroundPanel;  
 
-			private String getDummyHtml(int pageNo) {				
-				String html = "<!DOCTYPE html>\r\n" + 
-						"<html>\r\n" + 
-						"<body>\r\n" + 
-						"<h1 style='background-color:powderblue;'>Welcome to CSViewer for Analysts v1.1!</h1>";
-				html += "<h2>A placeholder for Page #" + pageNo + ".</h2>";
-				html += "</body>\r\n" + 
-						"</html>\r\n";
+    // Constructor
+    public HelpPanelWithHtmlContents(String directoryPath) {
+        
+        setLayout(new BorderLayout()); // Use BorderLayout for the panel
 
-				return html;
-			}
-			
-		};
-		
-		for (JButton b : btns) {
-			b.addActionListener(al);
-			controlPanel.add(b);
-		}
-		
-		this.setLayout(new BorderLayout());
-		this.add(controlPanel, BorderLayout.SOUTH);
-		this.add(jspHtml);
-		/*
-		p.setMinimumSize(new Dimension(890, 625));
-		p.setMaximumSize(new Dimension(890, 625));
-		p.setPreferredSize(new Dimension(890, 625));
-		*/
-	}
+        // Initialize the text pane
+        htmlPane = new JTextPane();
+        htmlPane.setContentType("text/html");
+        htmlPane.setEditable(false); // Ensure the text pane is not editable
 
-	public void loadPagesForTopic(String helpTopic) {
-		// for now
-		String dir = "";
-		if (helpTopic.equals("Intro"))
-			dir = "html/Welcome";
-		else 
-			dir = "html/" + helpTopic;
-			
-		System.out.println();
-		theModel = theBuilder.retrievePagesFromDir(dir);
-		
-	}
+        // Create a scroll pane to contain the text pane
+        JScrollPane jspHtml = new JScrollPane(htmlPane);
 
-	public void setContentToInitialPage() {
-		this.htmlPane.setText(theModel.getPageByIndex(0));
-	}
+        // Retrieve the help panel content model from the directory
+        theModel = theBuilder.retrievePagesFromDir(directoryPath);
+        int pageCount = theModel.pageCount(); // Get the number of pages in the model
+
+        // Create a panel for navigation buttons
+        JPanel buttonPanel = new JPanel(); 
+
+        // Create the previous button and add action listener
+        prevButton = new JButton("Prev");
+        prevButton.addActionListener(new NavigationHandler());
+        buttonPanel.add(prevButton); 
+
+        // Create the text field for page number input
+        pageNumberField = new JTextField(5);
+        pageNumberField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    goToPage();
+                }
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        buttonPanel.add(pageNumberField); 
+
+        // Create the next button and add action listener
+        nextButton = new JButton("Next");
+        nextButton.addActionListener(new NavigationHandler());
+        buttonPanel.add(nextButton); 
+
+        // Set preferred size for the text pane
+        jspHtml.setPreferredSize(new Dimension(500, 300));
+        // Add the text pane to the center of the panel
+        add(jspHtml, BorderLayout.CENTER); 
+        // Add the button panel to the bottom of the panel
+        add(buttonPanel, BorderLayout.SOUTH); 
+
+        // Show the first page when the panel is initialized
+        if (pageCount > 0) {
+            showPage(0); // Show the first page
+        }
+    }
+
+    // Method to display the page with the given index
+    private void showPage(int index) {
+        htmlPane.setText(theModel.getPageByIndex(index)); // Set the text of the text pane to the content of the page
+        currentBtnIndex = index; // Update the index of the currently displayed page
+    }
+
+    // ActionListener for navigation buttons
+    class NavigationHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // If previous button is clicked and there are pages before the current page
+            if (e.getSource() == prevButton && currentBtnIndex > 0) {
+                currentBtnIndex--; // Decrement the index
+                showPage(currentBtnIndex); // Show the previous page
+            } 
+            // If next button is clicked and there are pages after the current page
+            else if (e.getSource() == nextButton && currentBtnIndex < theModel.pageCount() - 1) {
+                currentBtnIndex++; // Increment the index
+                showPage(currentBtnIndex); // Show the next page
+            }
+        }
+    }
+
+    // ActionListener for "Go To" button
+    class GoToPageHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            goToPage();
+        }
+    }
+
+    // Method to navigate to the specified page
+    private void goToPage() {
+        try {
+            // Parse the page number input from the text field
+            int pageIndex = Integer.parseInt(pageNumberField.getText()) - 1;
+            // If the page number is valid
+            if (pageIndex >= 0 && pageIndex < theModel.pageCount()) {
+                currentBtnIndex = pageIndex; // Update the index
+                showPage(currentBtnIndex); // Show the specified page
+            }
+        } catch (NumberFormatException ex) {
+            // Handle invalid input (non-numeric input)
+        }
+    }
 }
