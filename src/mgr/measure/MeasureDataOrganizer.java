@@ -57,4 +57,25 @@ public class MeasureDataOrganizer {
 		return this.measureKeys.toArray(new String[measureKeys.size()]);
 	}
 
+	public DataFrame<Object> getMeasureByTattoo(String tattoo) {
+		Predicate<Object> p = new Predicate<Object>() {
+		
+	          @Override
+	          public Boolean apply(List<Object> values) {
+	        	  String csTattoo = values.get(3).toString();
+	  			  if (tattoo.startsWith("\"") && tattoo.endsWith("\""))
+	  				csTattoo = "\"" + csTattoo + "\"";
+	        	  //String matril = values.get("Matril").toString();
+	              return csTattoo.equalsIgnoreCase(tattoo);
+	          }
+		};
+		
+		return accessor.getMeasureDataframe().select(p);
+	}
+
+	public DataFrame<Object> getCatMeasure(String[] catMeasures) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

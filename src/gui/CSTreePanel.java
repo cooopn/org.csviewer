@@ -93,8 +93,8 @@ public class CSTreePanel extends JPanel {
 
         private boolean hasMeasure(String animalId) {
 			// return false now
-			//return window.getMeasureManager().hasMeasure(animalId);
-        	return false;
+			return window.getBoneMeasureManager().hasMeasureForTattoo(animalId);
+        	//return false;
 		}
 
 		private Icon setNodeIcon(Object value) {

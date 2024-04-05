@@ -17,7 +17,7 @@ import javax.swing.border.TitledBorder;
 
 import gui.BasicBackgroundPanel;
 import gui.image.CSImagePanel;
-import cstest.tohtml.HtmlContentOverBBPanel;
+import mgr.help.HtmlContentOverBBPanel;
 
 //import gui.ImagePanel;
 

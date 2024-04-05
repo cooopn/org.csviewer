@@ -22,4 +22,12 @@ public class BoneMeasureMgr {
 	public void setSelectedKeys(String[] selectedKeys) {
 		this.selectedKeys = selectedKeys;
 	}
+	
+	public DataFrame<Object> getMeasureByTattoo(String tattoo) {
+		return mdOrg.getMeasureByTattoo(tattoo);
+	}
+	
+	public boolean hasMeasureForTattoo(String tattoo) {
+		return mdOrg.getMeasureByTattoo(tattoo).length() == 1;
+	}
 }

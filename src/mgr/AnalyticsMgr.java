@@ -8,7 +8,9 @@ import java.util.Set;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -22,6 +24,8 @@ import mgr.measure.MeasureDataOrganizer;
 import mgr.search.AnimalFamilyInfoAccessor;
 import mgr.search.AnimalFamilyOrganizer;
 import mgr.search.SearchMgr;
+
+import cstest.analyticspanel.CSColumnChartDataGenerator;
 
 public class AnalyticsMgr {
 	public static int EAAD = 0;
@@ -45,8 +49,49 @@ public class AnalyticsMgr {
 		this.xyPlotMode  = mode;
 	}
 
+	// for column chart: with multiple categories allowed
+	public void buildColumnChartTab(MainContentPaneWithTabs tabbedPane) {
+		DataFrame<Object> measures = bmMgr.selectMeasures();
+		DataFrame<Object> animals = sMgr.selectAnimals();
+		DataFrame<Object> dataset = animals.joinOn(measures, JoinType.INNER, 0);
+		System.out.println(dataset.columns() + " (" + dataset.length() + ")");
+		
+		int len = bmMgr.getSelectedKeys().length + 2;
+		String[] colsToInclude = new String[len];
+		System.arraycopy(bmMgr.getSelectedKeys(), 0, colsToInclude, 0, 
+				bmMgr.getSelectedKeys().length);
+		colsToInclude[len-2] = "CS_Tattoo";
+		colsToInclude[len-1] = "EAAD";
+		dataset = dataset.retain(colsToInclude);
+		System.out.println(dataset.columns() + " (" + dataset.length() + ")");
+		dataset = dataset.dropna();
+		// appear to be the same as xy-plot
+		
+		addColumnChartAsTab(dataset, tabbedPane);
+	}
+
+	private void addColumnChartAsTab(DataFrame<Object> df, 
+			MainContentPaneWithTabs tabbedPane) {
+		// get category names: all columns in dataset except tattoo and eaad
+		CSColumnChartDataGenerator cdg = new CSColumnChartDataGenerator();
+		cdg.prepareDataFor(df);
+		
+		CategoryDataset dataset = cdg.createDataset();
+        JFreeChart colChart = ChartFactory.createBarChart(
+                "Joint Measures by Category",           
+                "Category",            
+                "Frequence",            
+                dataset,          
+                PlotOrientation.VERTICAL,           
+                true, true, false);
+        
+        // Create Panel  
+        ChartPanel panel = new ChartPanel(colChart);  
+		tabbedPane.addTab("Column Chart", panel);
+	}
+
+	// for xy plots: with EAAD as X or 1st in series as X
 	public void buildXyPlotTab(MainContentPaneWithTabs tabbedPane) {
-		// TODO Auto-generated method stub
 		DataFrame<Object> measures = bmMgr.selectMeasures();
 		DataFrame<Object> animals = sMgr.selectAnimals();
 		DataFrame<Object> dataset = animals.joinOn(measures, JoinType.INNER, 0);
@@ -118,8 +163,10 @@ public class AnalyticsMgr {
 		    index = keyToIndex.get(var);
 		    double x, y;
 		    for (int i = 0; i<df.length(); i++) {
-		    	x = (Double)(df.get(i, indexOfX));
-		    	y = (Double)(df.get(i, index));
+		    	//x = (Double)(df.get(i, indexOfX));
+		    	//y = (Double)(df.get(i, index));
+		    	x = Double.parseDouble(df.get(i, indexOfX).toString());
+		    	y = Double.parseDouble(df.get(i, index).toString());
 		    	System.out.println(i + ": (" + x + ", " + y + ")");
 		    	series1.add(x, y);
 		    	//series1.add((Double)(dfCase2.get(i, "EAAD")), (Double)(dfCase2.get(i,  "F3")));
@@ -157,8 +204,10 @@ public class AnalyticsMgr {
 		    index = keyToIndex.get(var);
 		    double x, y;
 		    for (int i = 0; i<df.length(); i++) {
-		    	x = (Double)(df.get(i, indexOfX));
-		    	y = (Double)(df.get(i, index));
+		    	//x = (Double)(df.get(i, indexOfX));
+		    	//y = (Double)(df.get(i, index));
+		    	x = Double.parseDouble(df.get(i, indexOfX).toString());
+		    	y = Double.parseDouble(df.get(i, index).toString());
 		    	System.out.println(i + ": (" + x + ", " + y + ")");
 		    	series1.add(x, y);
 		    	//series1.add((Double)(dfCase2.get(i, "EAAD")), (Double)(dfCase2.get(i,  "F3")));
@@ -170,6 +219,7 @@ public class AnalyticsMgr {
 		return dataset;
 	}
 
+	// used mostly for testing prior to v1.1
 	public void testXyPlotTab(MainContentPaneWithTabs tabbedPane) {
 		// TODO Auto-generated method stub
 		DataFrame<Object> other = bmMgr.selectMeasures();

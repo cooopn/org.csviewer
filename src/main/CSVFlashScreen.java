@@ -13,13 +13,13 @@ public class CSVFlashScreen {
 
     public static void main(String[] args) {
         // Load the image to be displayed on the splash screen
-        ImageIcon csvFlashImage = new ImageIcon("images/SplashPageImage.png");
+        ImageIcon csvFlashImage = new ImageIcon("images/SplashPageImageV11.png");
 
         // Create a frameless JFrame
         JFrame frameless = new JFrame("Not Showing");
         
         // close the flashscreen in 3 seconds and open the main window
-        Timer timer = new Timer(3000, new ActionListener(){
+        Timer timer = new Timer(10000, new ActionListener(){
             public void actionPerformed(ActionEvent evt) {
             	startMainWindow(frameless);
             }

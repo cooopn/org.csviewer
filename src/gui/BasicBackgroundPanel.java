@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class BasicBackgroundPanel extends JPanel {
@@ -17,7 +18,11 @@ public class BasicBackgroundPanel extends JPanel {
         setLayout( null );
     }
  
-    @Override
+    public BasicBackgroundPanel(String imgFile) {
+		this(new ImageIcon(imgFile).getImage());
+	}
+
+	@Override
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);

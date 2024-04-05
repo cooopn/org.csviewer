@@ -72,7 +72,8 @@ public class HistogramTest extends JFrame {
         HistogramDataset dataset = new HistogramDataset();
         dataset.setType(HistogramType.FREQUENCY);
         generateData();
-        //double[] data = {23057.5,22948.30078,22948.30078,22948.30078,22620.40039,22511.09961,22511.09961,22401.90039,22401.90039};
+        //double[] data = {23057.5,22948.30078,22948.30078,22948.30078,
+        // 22620.40039,22511.09961,22511.09961,22401.90039,22401.90039};
         //dataset.addSeries("H1", data, data.length, 22100.0, 23100.0); 
         dataset.addSeries("H1", data, 10, min, max); 
         return dataset;     

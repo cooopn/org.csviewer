@@ -88,6 +88,10 @@ public class FamilyTreeMgr {
 		for (int desc=0; desc<descendants.size(); desc++) {
 			path1 = getPath(root, 
 					getMatrilTreeNodeById(descendants.get(desc)));
+			if (path1 == null) {
+				System.out.println("cannot find path for " + descendants.get(desc));
+				continue;
+			}
 			System.out.println("Desc #" + desc + ":" + path1.getPathCount());
 			DefaultMutableTreeNode newNode;
 			for (int i=0; i<path1.getPathCount(); i++) {
@@ -125,15 +129,20 @@ public class FamilyTreeMgr {
 		}		
 	}
 
-	TreePath getPath(TreeNode founderNode, TreeNode treeNode) {
+	TreePath getPath(DefaultMutableTreeNode founderNode, DefaultMutableTreeNode treeNode) {
 	    List<Object> nodes = new ArrayList<Object>();
+	    /*
+	    System.out.println("in getPath: " + 
+	    		((AnimalFamilyInfo) founderNode.getUserObject()).getAnimalId() + "<--"
+	    		+ ((AnimalFamilyInfo) treeNode.getUserObject()).getAnimalId());
+	    */
 	    if (treeNode != null) {
 	      nodes.add(treeNode);
-	      treeNode = treeNode.getParent();
+	      treeNode = (DefaultMutableTreeNode) treeNode.getParent();
 	      //while (treeNode != null) {
 		  while (treeNode != null && !treeNode.equals(founderNode)) {
 	        nodes.add(0, treeNode);
-	        treeNode = treeNode.getParent();
+	        treeNode = (DefaultMutableTreeNode) treeNode.getParent();
 	      }
 	    }
 

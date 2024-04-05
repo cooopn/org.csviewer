@@ -1,15 +1,11 @@
 package main;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +13,6 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,24 +32,21 @@ import javax.swing.tree.TreePath;
 
 import csdb.KinshipGraphEditor;
 import csdb.core.GraphFrame;
-import cstest.image.DummyImagePanel;
-import cstest.tohtml.HtmlContentOverBBPanel;
 import gui.BasicBackgroundPanel;
 import gui.BottomPanel;
 import gui.CSTreePanel;
-import gui.HelpPanelWithHtmlContents;
+//import gui.HelpPanelWithHtmlContents;
 import gui.MainContentPaneWithTabs;
 import gui.MeasureTablePanel;
 import gui.image.CSImageEntity;
-import gui.image.CSImagePanel;
 import gui.image.ImageBlockPanel;
 import gui.measure.MeasureSelectionPanel;
 import gui.search.AnimalSetSelectionPanel;
-import gui.BasicBackgroundPanel;
 import mgr.AnalyticsMgr;
 import mgr.AnimalFamilyInfo;
 import mgr.ProjectMgr;
 import mgr.familytree.FamilyTreeMgr;
+import mgr.help.HtmlContentOverBBPanel;
 import mgr.measure.BoneMeasureMgr;
 import mgr.search.SearchMgr;
 
@@ -74,8 +66,11 @@ public class CSViewerMain extends JFrame {
 	private AnalyticsMgr aMgr = new AnalyticsMgr(sMgr, bmMgr);
 	private ProjectMgr pMgr;
 
+	/*
+	// Panel for the "Welcome" tab
 	private HelpPanelWithHtmlContents welcomePanel = 
-			new HelpPanelWithHtmlContents("html/Welcome"); // Panel for the "Welcome" tab
+			new HelpPanelWithHtmlContents("html/Welcome"); 
+			*/
 	protected ImageBlockPanel imageBlockPanel;
 	//private HelpPanelWithHtmlContents measureInformation = 
 	//		new HelpPanelWithHtmlContents("html/Measure"); // Panel for the "Measure" tab
@@ -134,21 +129,21 @@ public class CSViewerMain extends JFrame {
 	}
 
 	private void addSummaryPane() {
-		contentPane.add(this.bPanel, BorderLayout.SOUTH);
+		/*
+		JPanel p = new JPanel();
+		p.setBorder(new EmptyBorder(5,5,5,5));
+		p.add(bPanel);
+		*/
+		contentPane.add(bPanel, BorderLayout.SOUTH);
 	}
 
 	private void initMainPanel() {
-		
         contentPane = new JPanel(new BorderLayout());
         contentPane.setOpaque(true);
-
-		tabbedPane.addTab("Welcome", welcomePanel);
  
-        //JPanel output = new HtmlContentOverBBPanel(null, 
-		//		"images/CSIslandWithNaviBar.png", "html/Welcome.html",
-		//		new Rectangle(50, 60, 700, 300));
-		//JScrollPane scrollPane = new JScrollPane(output);
-		//tabbedPane.addTab("Welcome", scrollPane);  
+        JPanel output = new HtmlContentOverBBPanel(null, 
+				"images/CSIslandWithNaviBar.png", "html/Welcome.html",
+				new Rectangle(50, 60, 700, 300));
         
         /*new JPanel();
         output.setLayout(new BorderLayout());
@@ -162,10 +157,10 @@ public class CSViewerMain extends JFrame {
         output.add(new JLabel(new ImageIcon("images/CSIsland.png")));
         //output.add(new JLabel(new ImageIcon("images/CSRhesusMM.jpg")));
          */
-        
+        JScrollPane scrollPane = new JScrollPane(output);
  
         //Add the text area to the content pane.
-             
+        tabbedPane.addTab("Welcome", scrollPane);       
         
         /*
         tabbedPane.addTab("Welcome", welcomePanel);
@@ -229,10 +224,21 @@ public class CSViewerMain extends JFrame {
 			
 		});
         searchMenu.add(jmItem);
-        jmItem = new JMenuItem("Select Family");
+        
+        // not doing anything yet 
+        jmItem = new JMenuItem("Select Catalog");
         searchMenu.add(jmItem);
+        
+        // test MeasureTablePanel for now Mar-6-24
         jmItem = new JMenuItem("Select Measure");
-		// Analytics with measure vs. EEAD xy-plot
+        jmItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				mPanel.showTableCard();
+			}
+			
+		});
         searchMenu.add(jmItem);
         menuBar.add(searchMenu);
         
@@ -539,7 +545,7 @@ public class CSViewerMain extends JFrame {
 				chartPanel.add(new JLabel(
 						new ImageIcon("images/EntriesByFounder.png")));
 		        JScrollPane scrollPane = new JScrollPane(chartPanel);
-		        tabbedPane.addTab("Migration-99L", scrollPane);
+		        tabbedPane.addTab("Entries By Founder", scrollPane);
 		        tabbedPane.setSelectedIndex(tabbedPane.getTabCount()-1);
 			}
         	
@@ -581,6 +587,21 @@ public class CSViewerMain extends JFrame {
         });
         menu.add(jmItem);
  		menuBar.add(menu);
+        
+		// Analytics with column chart for categorical measures 
+		jmItem = new JMenuItem("Column Chart");
+        jmItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				aMgr.buildColumnChartTab(tabbedPane); 
+			}
+        	
+        });
+        menu.add(jmItem);
+ 		menuBar.add(menu);
+ 		
+ 		// add head count trend chart
 		jmItem = new JMenuItem("Head Count Trend");
         jmItem.addActionListener(new ActionListener() {
 
@@ -643,7 +664,8 @@ public class CSViewerMain extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JDialog aboutBox = new JDialog(CSViewerMain.this, "About CS Viewer");
+				// update version number ==> to v1.1 now!
+				JDialog aboutBox = new JDialog(CSViewerMain.this, "About CS Viewer - Version 1.1");
 				aboutBox.setIconImage(CS_VIEWER_LOGO);
 				
 				//arrangeAboutBox(aboutBox);
@@ -672,7 +694,7 @@ public class CSViewerMain extends JFrame {
 				
 				aboutBox.setLayout(new BorderLayout());
 				//aboutBox.setLayout(new BoxLayout(aboutBox, BoxLayout.X_AXIS));
-				ImageIcon flashIcon = new ImageIcon("images/AboutBoxLayout.png");
+				ImageIcon flashIcon = new ImageIcon("images/AboutBoxNoVersion.png");
 				aboutBox.add(new JLabel(flashIcon), BorderLayout.CENTER);
 				aboutBox.add(bottomPanel, BorderLayout.SOUTH);
 			}
@@ -698,7 +720,7 @@ public class CSViewerMain extends JFrame {
                 	//Update measure table data
                 	// comment out for now
                 	System.out.println(an.getAnimalId());
-                	//updateMeasureData(an); 
+                	updateMeasureData(an); 
                 	// Update Measure information
                	
                 	//Update general information
@@ -710,6 +732,25 @@ public class CSViewerMain extends JFrame {
         });
     }
     
+	public void updateMeasureData(AnimalFamilyInfo an) {
+		String testTattoo = an.getAnimalId();
+    	System.out.println("||" + testTattoo + "||");
+    	/*
+    	 * // both have "" in text file
+		if (testTattoo.charAt(0) == '"')
+			testTattoo = testTattoo.substring(1, testTattoo.length()-1);
+		*/
+    	//DataFrame<Object> df = this.bmMgr.getMeasureByTattoo(testTattoo);
+     	//if(df != null)
+    	//	mPanel.editTable(df);
+    	//else
+    	//	mPanel.editTable(MeasureBean.getTestBean());
+    	
+    	// let the panel to deal with df, whether null or not	
+    	mPanel.editTable(bmMgr.getMeasureByTattoo(testTattoo));
+		repaint();	
+	}
+
 	private void updateSummaryData(AnimalFamilyInfo an) {
 		bPanel.editData(an);
 		System.out.println("in update sum: " + an.getGender());
@@ -717,7 +758,8 @@ public class CSViewerMain extends JFrame {
 	}
 	
 	public void updateSummaryData(String testTattoo) {
-		AnimalFamilyInfo an = (AnimalFamilyInfo) fmgr.getMatrilTreeNodeById(testTattoo).getUserObject();
+		AnimalFamilyInfo an = (AnimalFamilyInfo) 
+				fmgr.getMatrilTreeNodeById(testTattoo).getUserObject();
 			bPanel.editData(an);
 			repaint();	
 	}
@@ -725,6 +767,11 @@ public class CSViewerMain extends JFrame {
 	public SearchMgr getSearchMgr() {
 		// TODO Auto-generated method stub
 		return sMgr;
+	}
+
+	public BoneMeasureMgr getBoneMeasureManager() {
+		// TODO Auto-generated method stub
+		return this.bmMgr;
 	}
 
 }
